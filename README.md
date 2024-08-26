@@ -1,4 +1,4 @@
-# Projeto de Desenvolvimento Web com JS/PHP com DataBases
+# Projeto de Desenvolvimento Web com JS/PHP e DataBases
 
 Integrantes: Dávio Carvalho - 202208919251
 # Tema: Catálogo de Perfumes
