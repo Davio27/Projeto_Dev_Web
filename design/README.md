@@ -173,16 +173,16 @@ Estes links direcionam para o projeto no Figma, onde é possível visualizar e i
 ![Home Page](PrtSc/Capturadetela1.png)
 
 ## Página Sobre
-![Página de Produtos](images/produtos.png)
+![Página de Produtos](PrtSc/Capturadetela2.png)
 
 ## Página Catálogo
-![Página de Contato](images/contato.png)
+![Página de Contato](PrtSc/Capturadetela3.png)
 
 ## Janela Modal
-![Página de Contato](images/contato.png)
+![Página de Contato](PrtSc/Capturadetela4.png)
 
 ## Página Filtro
-![Página de Contato](images/contato.png)
+![Página de Contato](PrtSc/Capturadetela5.pngg)
 
 ## Página Tela de Login/Cadastro
 ![Página de Contato]()
