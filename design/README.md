@@ -170,7 +170,7 @@ Este diretório contém os links para o design e protótipo do site.
 Estes links direcionam para o projeto no Figma, onde é possível visualizar e interagir com o design do site.
 
 ## Página Home
-![Home Page](images/homepage.png)
+![Home Page](PrcSC das páginas/Captura de tela 1.png)
 
 ## Página Sobre
 ![Página de Produtos](images/produtos.png)
