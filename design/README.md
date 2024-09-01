@@ -168,3 +168,21 @@ Este diretório contém os links para o design e protótipo do site.
 - [Design no Figma](https://www.figma.com/design/PvZ0AgZXYIpDOVmFtcINX9/Escopo-Dev-Web?node-id=0-1&m=dev&t=M3FvYsHeAqOgHiHZ-1)
 
 Estes links direcionam para o projeto no Figma, onde é possível visualizar e interagir com o design do site.
+
+## Página Home
+![Home Page](images/homepage.png)
+
+## Página Sobre
+![Página de Produtos](images/produtos.png)
+
+## Página Catálogo
+![Página de Contato](images/contato.png)
+
+## Janela Modal
+![Página de Contato](images/contato.png)
+
+## Página Filtro
+![Página de Contato](images/contato.png)
+
+## Página Tela de Login/Cadastro
+![Página de Contato]()
