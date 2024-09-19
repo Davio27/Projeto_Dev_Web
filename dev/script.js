@@ -120,3 +120,29 @@ window.onclick = function (event) {
     registerModal.style.display = "none";
   }
 };
+
+
+
+// Função para abrir o menu de perfil
+document.getElementById('btnperfil').addEventListener('click', function() {
+  const overlay = document.getElementById('profileMenuOverlay');
+  const profileMenu = document.getElementById('profileMenu');
+
+  // Exibe a modal de perfil
+  overlay.style.display = 'block';
+  profileMenu.style.display = 'block';
+});
+
+// Função para fechar o menu ao clicar fora dele
+document.addEventListener('click', function(event) {
+  const overlay = document.getElementById('profileMenuOverlay');
+  const profileMenu = document.getElementById('profileMenu');
+  const btnPerfil = document.getElementById('btnperfil');
+
+  // Verifica se o clique foi fora do menu de perfil
+  if (!profileMenu.contains(event.target) && !btnPerfil.contains(event.target)) {
+      overlay.style.display = 'none';
+      profileMenu.style.display = 'none';
+  }
+});
+
