@@ -23,14 +23,41 @@
                 <h1>Gio Fragrâncias</h1>
             </a>
         </div>
-        <!-- Ícones de login e carrinho -->
-        <div class="header-icons">
-            <button class="buttonicon" id="openModalBtn"><i class='bx bx-user'></i></button>
-            <a href="#" id="cart-icon">
-                <i class='bx bxs-cart'></i> <!-- Ícone de carrinho de compras -->
-            </a>
+        <!-- Novo ícone substituto, inicialmente oculto -->
+        <div id="perfilicon" class="headers-icons" style="display: none;">
+            <button class="buttonicon" id="btnperfil">
+                <i class='bx bxs-group'></i>
+            </button>
+            <button class="buttonicon" id="cart-icon">
+                <i class='bx bxs-cart'></i>
+            </button> <!-- Ícone de carrinho de compras -->
         </div>
+
+        <div id="perfilnoicon" class="header-icons" style="display: flex;">
+            <button class="buttonicon" id="openModalBtn">
+                <i class='bx bx-user'></i>
+            </button>
+            <button class="buttonicon" id="cart-icon">
+                <i class='bx bxs-cart'></i>
+            </button> <!-- Ícone de carrinho de compras -->
+        </div>
+
+
+
+        <div id="profileMenuOverlay"></div>
+        <div id="profileMenu">
+            <button onclick="openEditProfileModal()">Editar Perfil</button>
+            <button onclick="logout()">Logout</button>
+        </div>
+
     </header>
+
+
+    <!-- Modal de edição de perfil -->
+    <div id="editProfileModal" style="display: none;">
+        <!-- Formulário para editar perfil -->
+        <button class="closeeditprofile">Fechar</button>
+    </div>
 
     <!-- Modal Login -->
     <div id="loginModal" class="modallogin">
@@ -40,7 +67,7 @@
             <form id="loginForm">
                 <label for="username">Nome:</label>
                 <input type="text" id="username" name="username" required>
-                
+
                 <label for="email">E-mail:</label>
                 <input type="email" id="loginEmail" name="email" required>
 
@@ -254,7 +281,7 @@
                 <img src="./imgs/perfumefoto.png" alt="ABSINTO">
                 <p>INSPIRADO EM ABSINTO Família Olfativa: Floral Oriental. Notas de Topo: Tuberosa; Notas de Coração:
                     Anis; Notas de Fundo: Baunilha.</p>
-                <a href="" target="_blank" class="buy-button">Faça já seu pedido</a>
+                <i id="adicionarcarrinho" class="buy-button">Adicionar ao carrinho</i>
             </div>
         </div>
     </div>
@@ -268,7 +295,7 @@
                     de Laranjeira, Prunela, Mandarina, Groselha Preta e Bergamota. As notas de coração são:
                     Lírio-do-Vale, Jasmim, Ylang Ylang e Rosa Vermelha. As notas de fundo são: Almíscar, Sândalo e
                     Vetiver.</p>
-                <a href="" target="_blank" class="buy-button">Faça já seu pedido</a>
+                <i id="adicionarcarrinho" class="buy-button">Adicionar ao carrinho</i>
             </div>
         </div>
     </div>
@@ -282,7 +309,7 @@
                     Árvore de Pinheiro, Limão de Amalfi e Bergamota. As notas de coração são: Lavanda, Flor de
                     Laranjeira Africana, Alecrim e Jasmim. As notas de fundo são: Musgo de Carvalho, Cedro, Patchouli e
                     Almíscar.</p>
-                <a href="" target="_blank" class="buy-button">Faça já seu pedido</a>
+                <i id="adicionarcarrinho" class="buy-button">Adicionar ao carrinho</i>
             </div>
         </div>
     </div>
@@ -302,7 +329,7 @@
                     Oceânicas, Jasmim, Calone, Alecrim, Pêssego, Frésia, Jacinto, Cyclamen, Violeta, Coentro, Rosa,
                     Noz-moscada e Resedá. As notas de fundo são: Almíscar Branco, Cedro, Musgo de Carvalho, Patchouli e
                     Âmbar</p>
-                <a href="" target="_blank" class="buy-button">Faça já seu pedido</a>
+                <i id="adicionarcarrinho" class="buy-button">Adicionar ao carrinho</i>
             </div>
         </div>
     </div>
@@ -312,7 +339,7 @@
             <div class="modal-content">
                 <img src="./imgs/perfumefoto.png" alt="ABSINTO">
                 <p>INSPIRADO EM ALLURE</p>
-                <a href="" target="_blank" class="buy-button">Faça já seu pedido</a>
+                <i id="adicionarcarrinho" class="buy-button">Adicionar ao carrinho</i>
             </div>
         </div>
     </div>
@@ -325,7 +352,7 @@
                     perfumista que assina esta fragrância é Jacques Polge. As notas de topo são: Laranja, Notas
                     Oceânicas, Aldeídos e Mandarina Sanguínea. As notas de coração são: Pimenta, Néroli e Cedro. As
                     notas de fundo são: Baunilha, Fava Tonka, Almíscar Branco, Âmbar, Vetiver e Resina de Elemi.</p>
-                <a href="" target="_blank" class="buy-button">Faça já seu pedido</a>
+                <i id="adicionarcarrinho" class="buy-button">Adicionar ao carrinho</i>
             </div>
         </div>
     </div>
@@ -337,7 +364,7 @@
                 <p>É um perfume Âmbar Especiado Masculino. Animale for Men foi lançada em 1993. As notas de topo são:
                     Limão, Néroli e Frésia. As notas de coração são: Lavanda, Bagas de Zimbro ou Junípero e Gerânio. As
                     notas de fundo são: Couro, Musgo de Carvalho e Vetiver.</p>
-                <a href="" target="_blank" class="buy-button">Faça já seu pedido</a>
+                <i id="adicionarcarrinho" class="buy-button">Adicionar ao carrinho</i>
             </div>
         </div>
     </div>
@@ -355,7 +382,7 @@
                     Abacaxi, Cardamomo e Mamão Papaia. As notas de coração são: Lírio-do-Vale, Jasmim, Violeta, Rosa,
                     Noz-moscada, Raíz de Orris e Frésia. As notas de fundo são: Acorde Verde, Almíscar, Cedro, Sândalo,
                     Musgo de Carvalho, Chá Verde e Âmbar.</p>
-                <a href="" target="_blank" class="buy-button">Faça já seu pedido</a>
+                <i id="adicionarcarrinho" class="buy-button">Adicionar ao carrinho</i>
             </div>
         </div>
     </div>
@@ -370,7 +397,7 @@
                     Bergamota, Hortelã, Junípero ou zimbro e Mandarina. As notas de coração são: Grama Verde, Pêssego,
                     Jasmim, Frésia, Magnólia e Orquídea. As notas de fundo são: Almíscar, Sândalo, Cedro, Baunilha,
                     Âmbar e Opoponax.</p>
-                <a href="" target="_blank" class="buy-button">Faça já seu pedido</a>
+                <i id="adicionarcarrinho" class="buy-button">Adicionar ao carrinho</i>
             </div>
         </div>
     </div>
@@ -382,7 +409,7 @@
                 <img src="./imgs/perfumefoto.png" alt="Unissex">
                 <p>É um perfume Amadeirado Aromático Masculino. As notas de topo são: Pimenta Rosa e Toranja. As notas
                     de coração são: Lavanda e Vetiver. As notas de fundo são: Baunilha, Âmbar e Fava Tonka.</p>
-                <a href="" target="_blank" class="buy-button">Faça já seu pedido</a>
+                <i id="adicionarcarrinho" class="buy-button">Adicionar ao carrinho</i>
             </div>
         </div>
     </div>
@@ -397,7 +424,7 @@
                     Lavanda, Cedro, Camomila, Mandarina, Espinheiro branco, Bergamota e Limão. As notas de coração são:
                     Folha de Violeta, Noz-moscada, Cedro, Sândalo, Cravo, Madressilva, Jasmim e Lírio-do-Vale. As notas
                     de fundo são: Couro, Vetiver, Almíscar, Âmbar, Patchouli e Fava Tonka.</p>
-                <a href="" target="_blank" class="buy-button">Faça já seu pedido</a>
+                <i id="adicionarcarrinho" class="buy-button">Adicionar ao carrinho</i>
             </div>
         </div>
     </div>
@@ -411,7 +438,7 @@
                     fragrância é Francis Kurkdjian. As notas de topo são: Lavanda, Hortelã, Cardamomo, Bergamota e
                     Artemísia. As notas de coração são: Canela, Flor de Laranjeira e Alcarávia. As notas de fundo são:
                     Baunilha, Fava Tonka, Âmbar, Sândalo e Cedro.</p>
-                <a href="" target="_blank" class="buy-button">Faça já seu pedido</a>
+                <i id="adicionarcarrinho" class="buy-button">Adicionar ao carrinho</i>
             </div>
         </div>
     </div>
@@ -422,7 +449,7 @@
             <div class="modal-content">
                 <img src="./imgs/perfumefoto.png" alt="Unissex">
                 <p>Tem que fazer</p>
-                <a href="" target="_blank" class="buy-button">Faça já seu pedido</a>
+                <i id="adicionarcarrinho" class="buy-button">Adicionar ao carrinho</i>
             </div>
         </div>
     </div>
@@ -433,7 +460,7 @@
             <div class="modal-content">
                 <img src="./imgs/perfumefoto.png" alt="Unissex">
                 <p>Tem que fazer</p>
-                <a href="" target="_blank" class="buy-button">Faça já seu pedido</a>
+                <i id="adicionarcarrinho" class="buy-button">Adicionar ao carrinho</i>
             </div>
         </div>
     </div>
@@ -446,7 +473,7 @@
                 <p>É um perfume Amadeirado Compartilhável. Sândalo foi lançada em 2019. As notas de topo são: Lima,
                     Mandarina e Pimenta Preta. As notas de coração são: Nagarmota ou Óleo de Cipriol, Madeira Guaiac e
                     Patchouli. As notas de fundo são: Sândalo, Almíscar e Madeira de Cashmere.</p>
-                <a href="" target="_blank" class="buy-button">Faça já seu pedido</a>
+                <i id="adicionarcarrinho" class="buy-button">Adicionar ao carrinho</i>
             </div>
         </div>
     </div>
@@ -463,6 +490,8 @@
                 </a>
         </div>
     </footer>
+
+
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
@@ -485,7 +514,18 @@
         const analytics = getAnalytics(app);
         const db = getDatabase(app);
 
+        function toggleProfileMenu() {
+            const profileMenu = document.getElementById("profileMenu");
+            const overlay = document.getElementById("profileMenuOverlay");
 
+            if (profileMenu.style.display === "none") {
+                profileMenu.style.display = "block";
+                overlay.style.display = "block";
+            } else {
+                profileMenu.style.display = "none";
+                overlay.style.display = "none";
+            }
+        }
         document.getElementById("loginForm").addEventListener('submit', function (e) {
             e.preventDefault(); // Evita o recarregamento da página
 
@@ -503,6 +543,10 @@
                             userFound = true;
                             alert("Login realizado com sucesso!");
                             document.getElementById("loginModal").style.display = "none";
+
+                            // Correção na troca de ícones
+                            document.getElementById("perfilnoicon").style.display = "none";
+                            document.getElementById("perfilicon").style.display = "flex";
                             // Aqui você pode redirecionar o usuário ou salvar a sessão
                         }
                     });
@@ -516,47 +560,47 @@
                 console.error("Erro ao buscar dados do usuário: ", error);
                 alert("Erro ao realizar login. Tente novamente.");
             });
-            
+
         });
-            document.getElementById("btnregister").addEventListener('click', function (e) {
-                e.preventDefault(); // Evita o recarregamento da página
+        document.getElementById("btnregister").addEventListener('click', function (e) {
+            e.preventDefault(); // Evita o recarregamento da página
 
-                // Coleta os dados do formulário
-                const username = document.getElementById("name").value;
-                const email = document.getElementById("useemail").value;
-                const password = document.getElementById("ppassword").value;
-                const cidade = document.getElementById("cidade").value;
-                const telefone = document.getElementById("telefone").value;
+            // Coleta os dados do formulário
+            const username = document.getElementById("name").value;
+            const email = document.getElementById("useemail").value;
+            const password = document.getElementById("ppassword").value;
+            const cidade = document.getElementById("cidade").value;
+            const telefone = document.getElementById("telefone").value;
 
-                console.log("Dados coletados:", { username, email, password, cidade, telefone });
+            console.log("Dados coletados:", { username, email, password, cidade, telefone });
 
-                // Define o caminho e os dados a serem armazenados
-                set(ref(db, 'users/' + username), {
-                    username: username,
-                    email: email,
-                    password: password,
-                    cidade: cidade,
-                    telefone: telefone
+            // Define o caminho e os dados a serem armazenados
+            set(ref(db, 'users/' + username), {
+                username: username,
+                email: email,
+                password: password,
+                cidade: cidade,
+                telefone: telefone
+            })
+                .then(() => {
+                    console.log("Dados salvos com sucesso!");
+                    alert("Cadastro realizado com sucesso!");
+
+                    // Verifica se o elemento do formulário existe antes de redefini-lo
+                    const formElement = document.getElementById("registerForm");
+                    if (formElement) {
+                        formElement.reset();
+                    } else {
+                        console.error("Elemento de formulário não encontrado!");
+                    }
+
+                    document.getElementById("registerModal").style.display = "none";
                 })
-                    .then(() => {
-                        console.log("Dados salvos com sucesso!");
-                        alert("Cadastro realizado com sucesso!");
-
-                        // Verifica se o elemento do formulário existe antes de redefini-lo
-                        const formElement = document.getElementById("registerForm");
-                        if (formElement) {
-                            formElement.reset();
-                        } else {
-                            console.error("Elemento de formulário não encontrado!");
-                        }
-
-                        document.getElementById("registerModal").style.display = "none";
-                    })
-                    .catch((error) => {
-                        console.error("Erro ao adicionar documento: ", error);
-                        alert("Erro ao cadastrar. Tente novamente.");
-                    });
-            });
+                .catch((error) => {
+                    console.error("Erro ao adicionar documento: ", error);
+                    alert("Erro ao cadastrar. Tente novamente.");
+                });
+        });
     </script>
 
 
