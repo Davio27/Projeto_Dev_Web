@@ -78,14 +78,26 @@ body {
     justify-content: space-between; /* Mantém a logo à esquerda e os ícones à direita */
     align-items: center;
 }
+
 .header-icons {
-    display: flex;
     gap: 1rem;
     z-index: 100;
    
 
 }
 .header-icons i {
+    font-size: 28px;
+    cursor: pointer;
+    color: #000;
+}
+
+.headers-icons {
+    gap: 1rem;
+    z-index: 100;
+   
+
+}
+.headers-icons i {
     font-size: 28px;
     cursor: pointer;
     color: #000;
@@ -210,6 +222,45 @@ form input {
 
 .register-btn:hover {
     background-color: #1976D2;
+}
+
+/* Estilo do modal de menu de perfil */
+#profileMenu {
+    display: none;
+    position: fixed;
+    top: 10%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    z-index: 1000;
+    
+}
+
+/* Botões dentro do modal de menu */
+#profileMenu button {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Fundo escurecido do modal */
+#profileMenuOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
 }
 
 
