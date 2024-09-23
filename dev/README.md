@@ -1,2 +1,0 @@
-# Giofragrancia
-Catalogo de perfurmes
