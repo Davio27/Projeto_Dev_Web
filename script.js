@@ -266,7 +266,7 @@ function logout() {
   localStorage.removeItem("userToken"); // Exemplo, ajuste conforme sua implementação
 
   // Redirecionar para a página de login ou atualizar a interface
-  window.location.href = "https://pt.pornhub.com/"; // Ajuste o caminho conforme necessário
+  window.location.href = "https://davio27.github.io/Projeto_Dev_Web/"; // Ajuste o caminho conforme necessário
 }
 
   
