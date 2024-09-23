@@ -78,14 +78,26 @@ body {
     justify-content: space-between; /* Mantém a logo à esquerda e os ícones à direita */
     align-items: center;
 }
+
 .header-icons {
-    display: flex;
     gap: 1rem;
     z-index: 100;
    
 
 }
 .header-icons i {
+    font-size: 28px;
+    cursor: pointer;
+    color: #000;
+}
+
+.headers-icons {
+    gap: 1rem;
+    z-index: 100;
+   
+
+}
+.headers-icons i {
     font-size: 28px;
     cursor: pointer;
     color: #000;
@@ -109,189 +121,261 @@ body {
     cursor: default;
     animation: sliderRight 1s ease forwards;
 }
+.buttonicon{
+    background-color: transparent;
+}
 
-/* modal login/cadastro */
-/* Modal */
-.modaluser {
+.modallogin {
+    display: none; /* Ocultar a modal por padrão */
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4); /* Fundo semi-transparente */
+}
+
+.modal-contentlogin {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    position: relative; /* Para posicionar o botão de fechar */
+}
+.modal-contentlogin h2{
+    color: #000;
+    font-size: 2rem;
+}
+
+.closelogin {
+    color: white;
+    background-color: red;
+    border: none;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+}
+
+.closelogin:hover,
+.closelogin:focus {
+    background-color: darkred;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin: 10px 0 10px;
+    font-size: 1.4rem;
+    color: black; /* Texto dos labels em preto */
+}
+
+form input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Centraliza os botões horizontalmente */
+    gap: 10px; /* Espaço entre os botões */
+}
+
+.login-btn, .register-btn {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 45%; /* Largura dos botões */
+}
+
+.login-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.login-btn:hover {
+    background-color: #45a049;
+}
+
+.register-btn {
+    background-color: #2196F3;
+    color: white;
+}
+
+.register-btn:hover {
+    background-color: #1976D2;
+}
+
+/* Estilo do modal de menu de perfil */
+#profileMenu {
+    display: none;
+    position: fixed;
+    top: 10%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    z-index: 1000;
+    
+}
+
+/* Botões dentro do modal de menu */
+#profileMenu button {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Fundo escurecido do modal */
+#profileMenuOverlay {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
 }
 
-.modal-contentuser {
-    background-color: #140f0f88;
-    margin: 15% auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 80%;
-    height: 40%;
-    text-align: center;
-}
-.modal-contentuser p{
-    font-size: 1.4rem;
-}
-.modal-contentuser p a{
-    color: #3CB371;
-}
-.modal-contentuser h2 {
-    font-size: 2rem;
-}
-.modal-contentuser label{
-    justify-content: center;
-    align-items: center ;
+
+.cart-modal {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 400px;
+    height: 90%;
+    background-color: white;
+    box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
     display: flex;
-    font-size: 2rem;
-
-}
-
-.modal-contentuser input {
-    width: 50%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
+    flex-direction: column;
+    padding: 20px;
     border-radius: 15px;
 }
 
-.modal-contentuser button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.modal-contentuser button:hover {
-    background-color: #45a049;
-}
-
-.closeuser {
-    color: #e71414;
-    float: right;
-    font-size: 33px;
-    font-weight: bold;
-}
-
-.closeuser:hover,
-.closeuser:focus {
-    color: rgb(240, 9, 9);
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Modal Carrinho */
-#cartModal {
-    display: none; /* Modal escondida por padrão */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
+.cart-modal-content {
+    flex-grow: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+    flex-direction: column;
+    justify-content: space-between; /* Adiciona espaço entre o conteúdo e o botão */
+    gap: 20px;
+    height: 100%;
 }
-
-.modal-contentuser {
-    background-color: rgba(255, 255, 255, 0.9); /* Fundo da modal */
-    padding: 30px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 400px;
+.cart-modal-content h2{
+    color: #000;
+    font-size: 2rem;
+}
+#checkoutButton {
+    display: block;
+    width: 60%; /* Largura personalizada para o botão */
+    margin: 0 auto 0px; /* Centraliza horizontalmente e dá margem inferior */
+    padding: 10px;
+    background-color: #8FBC8F; /* Cor de fundo do botão */
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
     text-align: center;
-    position: relative;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidade */
+    border-radius: 5px;
 }
 
-.cart-items {
-    text-align: left;
-    margin-bottom: 20px;
+#checkoutButton:hover {
+    background-color: #e64a19; /* Cor de fundo ao passar o mouse */
+}
+
+#cartItemsList {
+    list-style-type: none;  /* Remove marcadores da lista */
+    padding: 0;
+    margin: 0;
+    color: #000;
+    max-width: 400px;  /* Largura máxima da lista */
+    border: transparent;  /* Borda ao redor da lista */
+    border-radius: 8px;  /* Bordas arredondadas */
+    overflow: auto;
+}
+
+#cartItemsList li {
+    padding: 15px;  /* Espaçamento interno para cada item */
+    border-bottom: 1px solid #36303093;  /* Linha divisória entre os itens */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Remove a linha divisória do último item */
+#cartItemsList li:last-child {
+    border-bottom: none;
+}
+
+/* Estilo adicional para cada item, pode ser ajustado conforme necessário */
+#cartItemsList li img {
+    width: 50px;  /* Tamanho das imagens dos perfumes */
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.cartItemsList li .item-name {
+    flex: 1;  /* O nome do perfume ocupa o espaço restante */
+    margin-left: 15px;
+    font-size: 16px;
+    color: #333;
+}
+
+.cartItemsList li .item-price {
+    font-size: 14px;
+    color: #999;
 }
 
 .cart-item {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
 .cart-item img {
     width: 50px;
     height: 50px;
-    margin-right: 10px;
 }
 
-.cart-item-details {
-    flex-grow: 1;
-}
-
-.checkout-button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
+.modal-close {
+    background: none;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-}
-
-.checkout-button:hover {
-    background-color: #45a049;
-}
-
-.closeuser {
-    color: #e71414;
-    float: right;
-    font-size: 33px;
-    font-weight: bold;
-}
-
-.closeuser:hover,
-.closeuser:focus {
-    color: rgb(240, 9, 9);
-    text-decoration: none;
-    cursor: pointer;
+    font-size: 24px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 
-/* Modal Carrinho */
-.cart-modal .modal-contentuser {
-    background-color: rgba(255, 255, 255, 0.9); /* Fundo da modal */
-    width: 80%;
-    max-width: 500px;
-}
-
-#cart-items {
-    text-align: left;
-    margin: 20px 0;
-}
-
-#checkout-btn {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#checkout-btn:hover {
-    background-color: #45a049;
-}
-
-.cart-close {
-    color: #e71414;
-    float: right;
-    font-size: 33px;
-    font-weight: bold;
-}
 
 
 
@@ -470,6 +554,7 @@ body {
     font-size: 2rem;
     margin-bottom: 20px;
     color: var(--bg-color);
+    text-transform: uppercase;
 }
 
 .catalogo-content p {
@@ -503,10 +588,13 @@ body {
 }
 
 .perfume-item p {
-    margin-top: 10px;
+    margin-bottom: 1px;
     color: var(--bg-color);
     font-size: 1.9rem;
 }
+
+
+
 
 
 .open-modal {
@@ -574,7 +662,7 @@ body {
     font-size: 2rem;
 }
 
-.buy-button {
+.adicionarcarrinho {
     display: inline-block;
     margin-top: 10px;
     padding: 12px 22px;
@@ -585,6 +673,7 @@ body {
     text-decoration: none;
     border-radius: 10px;
     text-align: center;
+    cursor: pointer;
 }
 
 
