@@ -792,4 +792,13 @@ form input {
     .modal-content p{
         font-size: 1.8rem;
     }
+    .cart-modal{
+        width: 300px;
+    }
 }
+@media only screen and (max-width: 350px){
+    .cart-modal{
+        width: 200px;
+    }
+}
+
