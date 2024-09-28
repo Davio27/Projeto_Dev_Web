@@ -1,8 +1,5 @@
-Aqui está a versão do README com ícones adicionados para tornar o documento visualmente mais atrativo:
 
----
-
-# 🌸 Projeto de Desenvolvimento Web com JS/PHP e Banco de Dados  
+# 👩‍💼🏢 Projeto de Desenvolvimento Web com JS/PHP e Banco de Dados  
 **Tema**: Catálogo de Perfumes - Gio Fragrância  
 **Integrante**: Dávio Carvalho - 202208919251
 
@@ -42,14 +39,12 @@ O projeto foi desenvolvido para **clientes da Gio Fragrância**, proporcionando 
 O site se enquadra no segmento de **cosméticos e fragrâncias**, focando em oferecer uma experiência digital otimizada para marcas de perfumes.
 
 ## 🖼️ Imagens do Projeto
-![Página Inicial](imgs/home.png)  
-![Lista de Perfumes](imgs/lista_perfumes.png)  
-![Detalhes do Perfume](imgs/detalhes_perfume.png)  
-![Tela de Login](imgs/login.png)
+![Página Inicial](design/PrtSc/home.png)  
+![Lista de Perfumes](design/PrtSc/sobre.png)  
+![Lista de Perfumes](design/PrtSc/lista.png)  
+![Detalhes do Perfume](design/PrtSc/modal.png)  
+![Tela de Login](design/PrtSc/telalogincarrinho.png)
 
 ## 🔗 Link de Acesso
 Acesse o projeto em: [Catálogo de Perfumes Gio Fragrância](https://davio27.github.io/Projeto_Dev_Web/)
 
----
-
-Esses ícones ajudam a segmentar o conteúdo e tornam a leitura mais interativa e divertida.
