@@ -1,23 +1,55 @@
-# Projeto de Desenvolvimento Web com JS/PHP e DataBases
+Aqui está a versão do README com ícones adicionados para tornar o documento visualmente mais atrativo:
 
-Integrantes: Dávio Carvalho - 202208919251
-# Tema: Catálogo de Perfumes
+---
 
-Este é um projeto de um catálogo de perfumes desenvolvido em HTML, CSS e JavaScript. O catálogo permite visualizar diferentes perfumes com informações detalhadas, como nome, valor, ocasião, tipo de fragrância e outras características.
+# 🌸 Projeto de Desenvolvimento Web com JS/PHP e Banco de Dados  
+**Tema**: Catálogo de Perfumes - Gio Fragrância  
+**Integrante**: Dávio Carvalho - 202208919251
 
-## Estrutura do Projeto
+## ✨ Descrição do Projeto
+Este é um projeto de catálogo de perfumes desenvolvido para a marca **Gio Fragrância**. Ele foi construído utilizando HTML, CSS e JavaScript, oferecendo uma interface responsiva e dinâmica para visualização de diferentes perfumes, suas características e informações detalhadas. O projeto também conta com uma funcionalidade de login/cadastro de clientes, onde é possível armazenar informações como nome, número de telefone e endereço de entrega.
 
-- **index.html**: Página principal do catálogo que exibe a lista de perfumes.
-- **styles.css**: Arquivo de estilos para a personalização visual da página.
-- **script.js**: Arquivo de script para funcionalidades interativas.
-- **imgs/**: Pasta contendo imagens dos perfumes e outros elementos gráficos.
-- **DataBases** Banco de Dados contendo informações de cadastro e endereços.
+## 🎯 Objetivos
+- 🛍️ Desenvolver uma aplicação web que permita aos usuários navegarem por uma lista de perfumes.
+- 📜 Fornecer informações detalhadas sobre cada perfume, como nome, valor, tipo de fragrância e ocasião de uso.
+- 👥 Implementar uma funcionalidade de login e cadastro para clientes.
+- 📱 Criar uma interface moderna, amigável e responsiva que se adapta a diferentes dispositivos.
 
-## Funcionalidades
-- **Página Home**: Exibe um layout inicial de boas vindas paras os clientes.
-- **Página About**: Exibe Informações sobre os perfumes biotipos.
-- Tela de Login/Cadastro para clientes (Dados como Nome, Numero de Telefone, e Endereço de entrega.
-- **Lista de Perfumes**: Exibe uma lista de perfumes com nome, valor, ocasião, tipo e outras informações relevantes.
-- **Detalhes do Perfume**: Cada perfume possui um botão "Ver detalhes" que pode ser usado para abrir uma modal com mais informações.
-- **Responsive Design**: O layout foi desenvolvido para ser responsivo, adaptando-se a diferentes tamanhos de tela.
+## 🔑 Funcionalidades Principais
+- **🏠 Página Inicial (Home)**: Tela de boas-vindas com navegação simples para acessar o catálogo de perfumes.
+- **🧴 Lista de Perfumes**: Exibe uma lista de perfumes com informações básicas (nome, valor, tipo de fragrância, ocasião).
+- **🔍 Detalhes do Perfume**: Cada item possui um botão "Ver detalhes" que exibe mais informações em uma modal.
+- **🔐 Login/Cadastro de Clientes**: Sistema de autenticação que permite ao usuário criar uma conta e acessar suas informações, incluindo dados de endereço para entrega.
+- **📲 Design Responsivo**: O layout se adapta automaticamente a diferentes dispositivos e tamanhos de tela.
+- **💾 Banco de Dados**: Simulação de dados de cadastro e endereço de clientes (sem uso de PHP).
 
+## 🛠️ Estrutura do Projeto
+- **index.html**: Página principal do catálogo.
+- **styles.css**: Arquivo CSS para estilização e layout da aplicação.
+- **script.js**: Arquivo JavaScript que implementa funcionalidades dinâmicas e interatividade.
+- **/imgs**: Diretório contendo imagens dos perfumes e outros elementos visuais.
+
+## 🧰 Tecnologias Utilizadas
+- **🌐 HTML5**: Estruturação do conteúdo do site.
+- **🎨 CSS3**: Estilização e design responsivo.
+- **⚙️ JavaScript**: Adição de interatividade e funcionalidades dinâmicas.
+- **🚀 GitHub Pages**: Hospedagem do projeto para acesso público.
+
+## 👥 Público-alvo
+O projeto foi desenvolvido para **clientes da Gio Fragrância**, proporcionando uma plataforma onde eles podem explorar as opções de perfumes disponíveis, com informações completas para auxiliar na escolha do produto ideal.
+
+## 🏷️ Segmento
+O site se enquadra no segmento de **cosméticos e fragrâncias**, focando em oferecer uma experiência digital otimizada para marcas de perfumes.
+
+## 🖼️ Imagens do Projeto
+![Página Inicial](imgs/home.png)  
+![Lista de Perfumes](imgs/lista_perfumes.png)  
+![Detalhes do Perfume](imgs/detalhes_perfume.png)  
+![Tela de Login](imgs/login.png)
+
+## 🔗 Link de Acesso
+Acesse o projeto em: [Catálogo de Perfumes Gio Fragrância](https://davio27.github.io/Projeto_Dev_Web/)
+
+---
+
+Esses ícones ajudam a segmentar o conteúdo e tornam a leitura mais interativa e divertida.
