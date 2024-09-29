@@ -1,128 +1,176 @@
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+import {
+  getDatabase,
+  ref,
+  set,
+  get,
+  child,
+} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
 
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBKy_3sfoPtuhYWgmUgLepmdQtYNn272NY",
-            authDomain: "devweb-a7e5a.firebaseapp.com",
-            projectId: "devweb-a7e5a",
-            storageBucket: "devweb-a7e5a.appspot.com",
-            messagingSenderId: "883683114423",
-            appId: "1:883683114423:web:3ed65501cdb1434cda3c32",
-            measurementId: "G-QP88L0EGMW"
-        };
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBKy_3sfoPtuhYWgmUgLepmdQtYNn272NY",
+  authDomain: "devweb-a7e5a.firebaseapp.com",
+  projectId: "devweb-a7e5a",
+  storageBucket: "devweb-a7e5a.appspot.com",
+  messagingSenderId: "883683114423",
+  appId: "1:883683114423:web:3ed65501cdb1434cda3c32",
+  measurementId: "G-QP88L0EGMW",
+};
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const db = getDatabase(app);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getDatabase(app);
 
-        function toggleProfileMenu() {
-            const profileMenu = document.getElementById("profileMenu");
-            const overlay = document.getElementById("profileMenuOverlay");
+function toggleProfileMenu() {
+  const profileMenu = document.getElementById("profileMenu");
+  const overlay = document.getElementById("profileMenuOverlay");
 
-            if (profileMenu.style.display === "none") {
-                profileMenu.style.display = "block";
-                overlay.style.display = "block";
-            } else {
-                profileMenu.style.display = "none";
-                overlay.style.display = "none";
-            }
-        }
-        // Função para validar e-mail
-        function validarEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
+  if (profileMenu.style.display === "none") {
+    profileMenu.style.display = "block";
+    overlay.style.display = "block";
+  } else {
+    profileMenu.style.display = "none";
+    overlay.style.display = "none";
+  }
+}
 
-        
-        
-        document.getElementById("loginForm").addEventListener('submit', function (e) {
-            e.preventDefault(); // Evita o recarregamento da página
+// Função para validar e-mail
+function validarEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
 
-            const email = document.getElementById("loginEmail").value;
-            const password = document.getElementById("loginPassword").value;
+// Função para validar a senha (Maiúscula, Minúscula, Número e Tamanho)
+function validarSenha(password) {
+  const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  return senhaRegex.test(password);
+}
 
-            // Verifica se o usuário está cadastrado
-            const usersRef = ref(db, 'users/');
-            get(usersRef).then((snapshot) => {
-                if (snapshot.exists()) {
-                    let userFound = false;
-                    snapshot.forEach((childSnapshot) => {
-                        const userData = childSnapshot.val();
-                        if (userData.email === email && userData.password === password) {
-                            userFound = true;
-                            alert("Login realizado com sucesso!");
-                            document.getElementById("loginModal").style.display = "none";
+// Função para validar se as senhas coincidem
+function validarConfirmacaoSenha(password, confirmPassword) {
+  return password === confirmPassword;
+}
 
-                            // Correção na troca de ícones
-                            document.getElementById("perfilnoicon").style.display = "none";
-                            document.getElementById("perfilicon").style.display = "flex";
-                            // Aqui você pode redirecionar o usuário ou salvar a sessão
-                        }
-                    });
-                    if (!userFound) {
-                        alert("Credenciais incorretas. Verifique o e-mail e a senha.");
-                    }
-                } else {
-                    alert("Nenhum usuário encontrado.");
-                }
-            }).catch((error) => {
-                console.error("Erro ao buscar dados do usuário: ", error);
-                alert("Erro ao realizar login. Tente novamente.");
-            });
+// Função para formatar o número de telefone enquanto o usuário digita
+function formatarTelefone(telefone) {
+  telefone = telefone.replace(/\D/g, ""); // Remove todos os caracteres não numéricos
+  telefone = telefone.replace(/^(\d{2})(\d)/g, "($1) $2"); // Coloca parênteses em torno dos dois primeiros dígitos
+  telefone = telefone.replace(/(\d{5})(\d{4})$/, "$1-$2"); // Coloca um hífen entre o 5º e o 6º dígito
+  return telefone;
+}
 
+document.getElementById("telefone").addEventListener("input", function () {
+  this.value = formatarTelefone(this.value);
+});
+
+document.getElementById("loginForm").addEventListener("submit", function (e) {
+  e.preventDefault(); // Evita o recarregamento da página
+
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  // Verifica se o usuário está cadastrado
+  const usersRef = ref(db, "users/");
+  get(usersRef)
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        let userFound = false;
+        snapshot.forEach((childSnapshot) => {
+          const userData = childSnapshot.val();
+          if (userData.email === email && userData.password === password) {
+            userFound = true;
+            alert("Login realizado com sucesso!");
+            document.getElementById("loginModal").style.display = "none";
+
+            // Correção na troca de ícones
+            document.getElementById("perfilnoicon").style.display = "none";
+            document.getElementById("perfilicon").style.display = "flex";
+            // Aqui você pode redirecionar o usuário ou salvar a sessão
+          }
         });
-        document.getElementById("btnregister").addEventListener('click', function (e) {
-            e.preventDefault(); // Evita o recarregamento da página
+        if (!userFound) {
+          alert("Credenciais incorretas. Verifique o e-mail e a senha.");
+        }
+      } else {
+        alert("Nenhum usuário encontrado.");
+      }
+    })
+    .catch((error) => {
+      console.error("Erro ao buscar dados do usuário: ", error);
+      alert("Erro ao realizar login. Tente novamente.");
+    });
+});
 
-            // Coleta os dados do formulário
-            const username = document.getElementById("name").value;
-            const email = document.getElementById("useemail").value;
-            const password = document.getElementById("ppassword").value;
-            const cidade = document.getElementById("cidade").value;
-            const telefone = document.getElementById("telefone").value;
+document.getElementById("btnregister").addEventListener("click", function (e) {
+  e.preventDefault(); // Evita o recarregamento da página
 
-            // Verifica se o e-mail é válido
-            if (!validarEmail(email)) {
-                alert("Por favor, insira um e-mail válido.");
-                return;
-            }
+  // Coleta os dados do formulário
+  const username = document.getElementById("name").value;
+  const email = document.getElementById("useemail").value;
+  const password = document.getElementById("ppassword").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+  const cidade = document.getElementById("cidade").value;
+  const telefone = document.getElementById("telefone").value;
 
-            console.log("Dados coletados:", { username, email, password, cidade, telefone });
+  // Verifica se o e-mail é válido
+  if (!validarEmail(email)) {
+    alert("Por favor, insira um e-mail válido.");
+    return;
+  }
 
-            // Define o caminho e os dados a serem armazenados
-            set(ref(db, 'users/' + username), {
-                username: username,
-                email: email,
-                password: password,
-                cidade: cidade,
-                telefone: telefone
-            })
-                .then(() => {
-                    console.log("Dados salvos com sucesso!");
-                    alert("Cadastro realizado com sucesso!");
+  // Validação da senha
+  if (!validarSenha(password)) {
+    alert(
+      "A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma minúscula e um número."
+    );
+    return;
+  }
 
-                    // Verifica se o elemento do formulário existe antes de redefini-lo
-                    const formElement = document.getElementById("registerForm");
-                    if (formElement) {
-                        formElement.reset();
-                    } else {
-                        console.error("Elemento de formulário não encontrado!");
-                    }
-
-                    document.getElementById("registerModal").style.display = "none";
-                })
-                .catch((error) => {
-                    console.error("Erro ao adicionar documento: ", error);
-                    alert("Erro ao cadastrar. Tente novamente.");
-                });
-        });
+  // Verificação se as senhas coincidem
+  if (!validarConfirmacaoSenha(password, confirmPassword)) {
+    alert("As senhas não coincidem.");
+    return;
+  }
 
 
+  console.log("Dados coletados:", {
+    username,
+    email,
+    password,
+    cidade,
+    telefone,
+  });
 
+  // Define o caminho e os dados a serem armazenados
+  set(ref(db, "users/" + username), {
+    username: username,
+    email: email,
+    password: password,
+    cidade: cidade,
+    telefone: telefone,
+  })
+    .then(() => {
+      console.log("Dados salvos com sucesso!");
+      alert("Cadastro realizado com sucesso!");
 
+      // Verifica se o elemento do formulário existe antes de redefini-lo
+      const formElement = document.getElementById("registerForm");
+      if (formElement) {
+        formElement.reset();
+      } else {
+        console.error("Elemento de formulário não encontrado!");
+      }
+
+      document.getElementById("registerModal").style.display = "none";
+    })
+    .catch((error) => {
+      console.error("Erro ao adicionar documento: ", error);
+      alert("Erro ao cadastrar. Tente novamente.");
+    });
+});
 
 document.addEventListener("DOMContentLoaded", function () {
   function filterPerfumes(filter) {
@@ -144,6 +192,28 @@ document.addEventListener("DOMContentLoaded", function () {
       perfume.style.display = "block";
     });
   }
+
+  // Função para mostrar/ocultar a senha da modal login
+  document.getElementById('showPasswordCheckbox').addEventListener('change', function () {
+    const passwordInput = document.getElementById('loginPassword');
+    if (this.checked) {
+        passwordInput.type = 'text'; // Mostra a senha
+    } else {
+        passwordInput.type = 'password'; // Esconde a senha
+    }
+  });
+
+  // Função para mostrar/ocultar a senha da modal registro
+  document.getElementById('PasswordCheckbox').addEventListener('change', function () {
+    const ppasswordInput = document.querySelectorAll('#ppassword, #confirmPassword');
+    ppasswordInput.forEach(input => {
+      if (this.checked) {
+          input.type = 'text'; // Mostra as senhas
+      } else {
+          input.type = 'password'; // Esconde as senhas
+      }
+    });
+  });
 
   // Attach event listeners to filter buttons
   document.querySelectorAll(".filter-button").forEach((button) => {
@@ -287,35 +357,42 @@ document
     document.getElementById("cartModal").style.display = "none";
   });
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const cartItemsList = document.getElementById("cartItemsList");
-    const cartModalopen = document.getElementById("cartModal");
+document.addEventListener("DOMContentLoaded", function () {
+  const cartItemsList = document.getElementById("cartItemsList");
+  const cartModalopen = document.getElementById("cartModal");
 
-    // Função para abrir a modal do carrinho
-    function openCartModal() {
-      cartModalopen.style.display = "block";
-      }
+  // Função para abrir a modal do carrinho
+  function openCartModal() {
+    cartModalopen.style.display = "block";
+  }
 
-      // Função para remover o item do carrinho
-    function removeFromCart(listItem) {
-      cartItemsList.removeChild(listItem);
-    }
+  // Função para remover o item do carrinho
+  function removeFromCart(listItem) {
+    cartItemsList.removeChild(listItem);
+  }
 
+  // Função para adicionar ao carrinho
+  function addToCart(perfumeId) {
+    const perfumeItem = document.querySelector(
+      `.perfume-item[data-perfume="${perfumeId}"]`
+    );
+    const perfumeImgSrc = perfumeItem.querySelector("img").getAttribute("src");
+    const perfumeName = perfumeItem.querySelector("h3").innerText;
+    const perfumeValue = perfumeItem.querySelector(
+      'span[id^="valorperf"]'
+    ).innerText;
+    const perfumeType = perfumeItem.querySelector(
+      'span[id^="tipoperf"]'
+    ).innerText;
+    const perfumeGenero = perfumeItem.querySelector(
+      'span[id^="generoperf"]'
+    ).innerText;
 
-    // Função para adicionar ao carrinho
-    function addToCart(perfumeId) {
-        const perfumeItem = document.querySelector(`.perfume-item[data-perfume="${perfumeId}"]`);
-        const perfumeImgSrc = perfumeItem.querySelector('img').getAttribute('src');
-        const perfumeName = perfumeItem.querySelector('h3').innerText;
-        const perfumeValue = perfumeItem.querySelector('span[id^="valorperf"]').innerText;
-        const perfumeType = perfumeItem.querySelector('span[id^="tipoperf"]').innerText;
-        const perfumeGenero = perfumeItem.querySelector('span[id^="generoperf"]').innerText;
+    // Extrai o valor do perfume e converte para número
 
-         // Extrai o valor do perfume e converte para número
-
-        // Criar um item de lista para o perfume
-        const listItem = document.createElement("li");
-        listItem.innerHTML = `
+    // Criar um item de lista para o perfume
+    const listItem = document.createElement("li");
+    listItem.innerHTML = `
             <img src="${perfumeImgSrc}" alt="${perfumeName}" style="width: 50px; height: 50px;"><br>
             <strong>${perfumeName}</strong><br>
             Valor: ${perfumeValue} <br>
@@ -323,64 +400,68 @@ document
             Gênero: ${perfumeGenero}
         `;
 
-        // Criar o botão de remover com ícone de lixeira
-        const removeButton = document.createElement("button");
-        removeButton.innerHTML = '<i class="fa fa-trash" style="color: red;"></i>'; // Ícone de lixeira (você pode usar FontAwesome ou outro)
-        removeButton.classList.add("remove-item"); // Adiciona uma classe para estilo
-        removeButton.style.cursor = 'pointer'; // Adiciona o cursor pointer
+    // Criar o botão de remover com ícone de lixeira
+    const removeButton = document.createElement("button");
+    removeButton.innerHTML = '<i class="fa fa-trash" style="color: red;"></i>'; // Ícone de lixeira (você pode usar FontAwesome ou outro)
+    removeButton.classList.add("remove-item"); // Adiciona uma classe para estilo
+    removeButton.style.cursor = "pointer"; // Adiciona o cursor pointer
 
-        // Adiciona evento ao botão para remover o item do carrinho
-        removeButton.addEventListener("click", function () {
-          removeFromCart(listItem);
-        });
-
-  // Adicionar o botão ao item da lista
-        listItem.appendChild(removeButton);
-
-        // Adicionar o item ao carrinho
-        cartItemsList.appendChild(listItem);
-
-        // Abrir automaticamente a modal do carrinho
-        openCartModal();
-    }
-
-    // Adiciona evento aos botões "Adicionar ao carrinho"
-    document.querySelectorAll(".adicionarcarrinho").forEach(button => {
-        button.addEventListener("click", function () {
-            const perfumeId = this.getAttribute("data-id");
-            addToCart(perfumeId);
-        });
+    // Adiciona evento ao botão para remover o item do carrinho
+    removeButton.addEventListener("click", function () {
+      removeFromCart(listItem);
     });
 
-    // Código para abrir/fechar o modal do carrinho
-    const cartIcon = document.getElementById("cart-icon");
-    const closeCartModal = document.getElementById("closeCartModal");
-    const cartModal = document.getElementById("cartModal");
+    // Adicionar o botão ao item da lista
+    listItem.appendChild(removeButton);
 
-    cartIcon.addEventListener("click", function () {
-        cartModal.style.display = "block";
+    // Adicionar o item ao carrinho
+    cartItemsList.appendChild(listItem);
+
+    // Abrir automaticamente a modal do carrinho
+    openCartModal();
+  }
+
+  // Adiciona evento aos botões "Adicionar ao carrinho"
+  document.querySelectorAll(".adicionarcarrinho").forEach((button) => {
+    button.addEventListener("click", function () {
+      const perfumeId = this.getAttribute("data-id");
+      addToCart(perfumeId);
     });
-
-    closeCartModal.addEventListener("click", function () {
-        cartModal.style.display = "none";
-    });
-});
-
-document.getElementById("checkoutButton").addEventListener("click", function () {
-  const cartItems = cartItemsList.querySelectorAll("li");
-  let message = "Olá, gi. Eu estou vindo através do seu catálogo e gostaria de fazer um pedido de perfume:\n\n";
-
-  cartItems.forEach(item => {
-      const perfumeName = item.querySelector("strong").innerText;
-      message += `${perfumeName},\n`;
   });
 
-  const whatsappUrl = `https://wa.me/5519995874113/?text=${encodeURIComponent(message)}`;
-  window.open(whatsappUrl, "_blank");
+  // Código para abrir/fechar o modal do carrinho
+  const cartIcon = document.getElementById("cart-icon");
+  const closeCartModal = document.getElementById("closeCartModal");
+  const cartModal = document.getElementById("cartModal");
+
+  cartIcon.addEventListener("click", function () {
+    cartModal.style.display = "block";
+  });
+
+  closeCartModal.addEventListener("click", function () {
+    cartModal.style.display = "none";
+  });
 });
 
+document
+  .getElementById("checkoutButton")
+  .addEventListener("click", function () {
+    const cartItems = cartItemsList.querySelectorAll("li");
+    let message =
+      "Olá, gi. Eu estou vindo através do seu catálogo e gostaria de fazer um pedido de perfume:\n\n";
 
-document.getElementById("logoutBtn").addEventListener("click", function() {
+    cartItems.forEach((item) => {
+      const perfumeName = item.querySelector("strong").innerText;
+      message += `${perfumeName},\n`;
+    });
+
+    const whatsappUrl = `https://wa.me/5519995874113/?text=${encodeURIComponent(
+      message
+    )}`;
+    window.open(whatsappUrl, "_blank");
+  });
+
+document.getElementById("logoutBtn").addEventListener("click", function () {
   logout();
 });
 
