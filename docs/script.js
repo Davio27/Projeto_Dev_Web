@@ -72,36 +72,41 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
 
-  // Verifica se o usuário está cadastrado
-  const usersRef = ref(db, "users/");
-  get(usersRef)
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        let userFound = false;
-        snapshot.forEach((childSnapshot) => {
-          const userData = childSnapshot.val();
-          if (userData.email === email && userData.password === password) {
-            userFound = true;
-            alert("Login realizado com sucesso!");
-            document.getElementById("loginModal").style.display = "none";
+  // Valida as credenciais com a função importada
+  if (validateLogin(email, password)) {
+    window.location.href = '../Crud/crud.html';
+  } else {
+    // Verifica se o usuário está cadastrado
+    const usersRef = ref(db, "users/");
+    get(usersRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          let userFound = false;
+          snapshot.forEach((childSnapshot) => {
+            const userData = childSnapshot.val();
+            if (userData.email === email && userData.password === password) {
+              userFound = true;
+              alert("Login realizado com sucesso!");
+              document.getElementById("loginModal").style.display = "none";
 
-            // Correção na troca de ícones
-            document.getElementById("perfilnoicon").style.display = "none";
-            document.getElementById("perfilicon").style.display = "flex";
-            // Aqui você pode redirecionar o usuário ou salvar a sessão
+              // Correção na troca de ícones
+              document.getElementById("perfilnoicon").style.display = "none";
+              document.getElementById("perfilicon").style.display = "flex";
+              // Aqui você pode redirecionar o usuário ou salvar a sessão
+            }
+          });
+          if (!userFound) {
+            alert("Credenciais incorretas. Verifique o e-mail e a senha.");
           }
-        });
-        if (!userFound) {
-          alert("Credenciais incorretas. Verifique o e-mail e a senha.");
+        } else {
+          alert("Nenhum usuário encontrado.");
         }
-      } else {
-        alert("Nenhum usuário encontrado.");
-      }
-    })
-    .catch((error) => {
-      console.error("Erro ao buscar dados do usuário: ", error);
-      alert("Erro ao realizar login. Tente novamente.");
-    });
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar dados do usuário: ", error);
+        alert("Erro ao realizar login. Tente novamente.");
+      });
+  }
 });
 
 document.getElementById("btnregister").addEventListener("click", function (e) {
