@@ -18,12 +18,8 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 window.onload = function() {
-  // Verifica se o usuário está logado (supondo que você tenha armazenado o estado no localStorage ou sessionStorage)
-  const userLoggedIn = localStorage.getItem('userLoggedIn');
-
-  // Se não estiver logado, redireciona para a página de login
-  if (!userLoggedIn) {
-    window.location.href = '../docs/index.html'; // Redireciona para a página de login
+  if (validateLogin == false) {
+    window.location.href = '../docs/index.html';
   }
 };
 
