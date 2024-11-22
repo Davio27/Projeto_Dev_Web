@@ -4,7 +4,6 @@ import {
   ref,
   set,
   get,
-  child,
 } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 import { validateLogin } from "../config/autentication.js";
 
@@ -139,15 +138,6 @@ document.getElementById("btnregister").addEventListener("click", function (e) {
     return;
   }
 
-
-  console.log("Dados coletados:", {
-    username,
-    email,
-    password,
-    cidade,
-    telefone,
-  });
-
   // Define o caminho e os dados a serem armazenados
   set(ref(db, "users/" + username), {
     username: username,
@@ -157,7 +147,6 @@ document.getElementById("btnregister").addEventListener("click", function (e) {
     telefone: telefone,
   })
     .then(() => {
-      console.log("Dados salvos com sucesso!");
       alert("Cadastro realizado com sucesso!");
 
       // Verifica se o elemento do formulário existe antes de redefini-lo
@@ -198,26 +187,32 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Função para mostrar/ocultar a senha da modal login
-  document.getElementById('showPasswordCheckbox').addEventListener('change', function () {
-    const passwordInput = document.getElementById('loginPassword');
-    if (this.checked) {
-        passwordInput.type = 'text'; // Mostra a senha
-    } else {
-        passwordInput.type = 'password'; // Esconde a senha
-    }
-  });
-
-  // Função para mostrar/ocultar a senha da modal registro
-  document.getElementById('PasswordCheckbox').addEventListener('change', function () {
-    const ppasswordInput = document.querySelectorAll('#ppassword, #confirmPassword');
-    ppasswordInput.forEach(input => {
+  document
+    .getElementById("showPasswordCheckbox")
+    .addEventListener("change", function () {
+      const passwordInput = document.getElementById("loginPassword");
       if (this.checked) {
-          input.type = 'text'; // Mostra as senhas
+        passwordInput.type = "text"; // Mostra a senha
       } else {
-          input.type = 'password'; // Esconde as senhas
+        passwordInput.type = "password"; // Esconde a senha
       }
     });
-  });
+
+  // Função para mostrar/ocultar a senha da modal registro
+  document
+    .getElementById("PasswordCheckbox")
+    .addEventListener("change", function () {
+      const ppasswordInput = document.querySelectorAll(
+        "#ppassword, #confirmPassword"
+      );
+      ppasswordInput.forEach((input) => {
+        if (this.checked) {
+          input.type = "text"; // Mostra as senhas
+        } else {
+          input.type = "password"; // Esconde as senhas
+        }
+      });
+    });
 
   // Attach event listeners to filter buttons
   document.querySelectorAll(".filter-button").forEach((button) => {
