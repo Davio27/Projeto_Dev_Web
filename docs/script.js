@@ -34,23 +34,27 @@ function toggleProfileMenu() {
     overlay.style.display = "none";
   }
 }
+window.toggleProfileMenu = toggleProfileMenu;
 
 // Função para validar e-mail
 function validarEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
+window.validarEmail = validarEmail;
 
 // Função para validar a senha (Maiúscula, Minúscula, Número e Tamanho)
 function validarSenha(password) {
   const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
   return senhaRegex.test(password);
 }
+window.validarSenha = validarSenha;
 
 // Função para validar se as senhas coincidem
 function validarConfirmacaoSenha(password, confirmPassword) {
   return password === confirmPassword;
 }
+window.validarConfirmacaoSenha = validarConfirmacaoSenha;
 
 // Função para formatar o número de telefone enquanto o usuário digita
 function formatarTelefone(telefone) {
@@ -59,6 +63,7 @@ function formatarTelefone(telefone) {
   telefone = telefone.replace(/(\d{5})(\d{4})$/, "$1-$2"); // Coloca um hífen entre o 5º e o 6º dígito
   return telefone;
 }
+window.formatarTelefone = formatarTelefone;
 
 document.getElementById("telefone").addEventListener("input", function () {
   this.value = formatarTelefone(this.value);
@@ -72,7 +77,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
 
   // Valida as credenciais com a função importada
   if (validateLogin(email, password)) {
-    window.location.href = '../Crud/crud.html';
+    window.location.href = "../Crud/crud.html";
   } else {
     // Verifica se o usuário está cadastrado
     const usersRef = ref(db, "users/");
@@ -178,6 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
+  window.filterPerfumes = filterPerfumes
 
   function showAll() {
     const perfumes = document.querySelectorAll(".perfume-item");
