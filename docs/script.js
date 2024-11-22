@@ -4,8 +4,9 @@ import {
   ref,
   set,
   get,
+  child,
 } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-import { validateLogin } from "../config/autentication.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,6 +21,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 const db = getDatabase(app);
 
 function toggleProfileMenu() {
@@ -34,27 +36,23 @@ function toggleProfileMenu() {
     overlay.style.display = "none";
   }
 }
-window.toggleProfileMenu = toggleProfileMenu;
 
 // Função para validar e-mail
 function validarEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
-window.validarEmail = validarEmail;
 
 // Função para validar a senha (Maiúscula, Minúscula, Número e Tamanho)
 function validarSenha(password) {
   const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
   return senhaRegex.test(password);
 }
-window.validarSenha = validarSenha;
 
 // Função para validar se as senhas coincidem
 function validarConfirmacaoSenha(password, confirmPassword) {
   return password === confirmPassword;
 }
-window.validarConfirmacaoSenha = validarConfirmacaoSenha;
 
 // Função para formatar o número de telefone enquanto o usuário digita
 function formatarTelefone(telefone) {
@@ -63,7 +61,6 @@ function formatarTelefone(telefone) {
   telefone = telefone.replace(/(\d{5})(\d{4})$/, "$1-$2"); // Coloca um hífen entre o 5º e o 6º dígito
   return telefone;
 }
-window.formatarTelefone = formatarTelefone;
 
 document.getElementById("telefone").addEventListener("input", function () {
   this.value = formatarTelefone(this.value);
@@ -75,41 +72,36 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
 
-  // Valida as credenciais com a função importada
-  if (validateLogin(email, password)) {
-    window.location.href = "../Crud/crud.html";
-  } else {
-    // Verifica se o usuário está cadastrado
-    const usersRef = ref(db, "users/");
-    get(usersRef)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          let userFound = false;
-          snapshot.forEach((childSnapshot) => {
-            const userData = childSnapshot.val();
-            if (userData.email === email && userData.password === password) {
-              userFound = true;
-              alert("Login realizado com sucesso!");
-              document.getElementById("loginModal").style.display = "none";
+  // Verifica se o usuário está cadastrado
+  const usersRef = ref(db, "users/");
+  get(usersRef)
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        let userFound = false;
+        snapshot.forEach((childSnapshot) => {
+          const userData = childSnapshot.val();
+          if (userData.email === email && userData.password === password) {
+            userFound = true;
+            alert("Login realizado com sucesso!");
+            document.getElementById("loginModal").style.display = "none";
 
-              // Correção na troca de ícones
-              document.getElementById("perfilnoicon").style.display = "none";
-              document.getElementById("perfilicon").style.display = "flex";
-              // Aqui você pode redirecionar o usuário ou salvar a sessão
-            }
-          });
-          if (!userFound) {
-            alert("Credenciais incorretas. Verifique o e-mail e a senha.");
+            // Correção na troca de ícones
+            document.getElementById("perfilnoicon").style.display = "none";
+            document.getElementById("perfilicon").style.display = "flex";
+            // Aqui você pode redirecionar o usuário ou salvar a sessão
           }
-        } else {
-          alert("Nenhum usuário encontrado.");
+        });
+        if (!userFound) {
+          alert("Credenciais incorretas. Verifique o e-mail e a senha.");
         }
-      })
-      .catch((error) => {
-        console.error("Erro ao buscar dados do usuário: ", error);
-        alert("Erro ao realizar login. Tente novamente.");
-      });
-  }
+      } else {
+        alert("Nenhum usuário encontrado.");
+      }
+    })
+    .catch((error) => {
+      console.error("Erro ao buscar dados do usuário: ", error);
+      alert("Erro ao realizar login. Tente novamente.");
+    });
 });
 
 document.getElementById("btnregister").addEventListener("click", function (e) {
@@ -143,6 +135,15 @@ document.getElementById("btnregister").addEventListener("click", function (e) {
     return;
   }
 
+
+  console.log("Dados coletados:", {
+    username,
+    email,
+    password,
+    cidade,
+    telefone,
+  });
+
   // Define o caminho e os dados a serem armazenados
   set(ref(db, "users/" + username), {
     username: username,
@@ -152,6 +153,7 @@ document.getElementById("btnregister").addEventListener("click", function (e) {
     telefone: telefone,
   })
     .then(() => {
+      console.log("Dados salvos com sucesso!");
       alert("Cadastro realizado com sucesso!");
 
       // Verifica se o elemento do formulário existe antes de redefini-lo
@@ -183,7 +185,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
-  window.filterPerfumes = filterPerfumes
 
   function showAll() {
     const perfumes = document.querySelectorAll(".perfume-item");
@@ -193,32 +194,26 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Função para mostrar/ocultar a senha da modal login
-  document
-    .getElementById("showPasswordCheckbox")
-    .addEventListener("change", function () {
-      const passwordInput = document.getElementById("loginPassword");
-      if (this.checked) {
-        passwordInput.type = "text"; // Mostra a senha
-      } else {
-        passwordInput.type = "password"; // Esconde a senha
-      }
-    });
+  document.getElementById('showPasswordCheckbox').addEventListener('change', function () {
+    const passwordInput = document.getElementById('loginPassword');
+    if (this.checked) {
+        passwordInput.type = 'text'; // Mostra a senha
+    } else {
+        passwordInput.type = 'password'; // Esconde a senha
+    }
+  });
 
   // Função para mostrar/ocultar a senha da modal registro
-  document
-    .getElementById("PasswordCheckbox")
-    .addEventListener("change", function () {
-      const ppasswordInput = document.querySelectorAll(
-        "#ppassword, #confirmPassword"
-      );
-      ppasswordInput.forEach((input) => {
-        if (this.checked) {
-          input.type = "text"; // Mostra as senhas
-        } else {
-          input.type = "password"; // Esconde as senhas
-        }
-      });
+  document.getElementById('PasswordCheckbox').addEventListener('change', function () {
+    const ppasswordInput = document.querySelectorAll('#ppassword, #confirmPassword');
+    ppasswordInput.forEach(input => {
+      if (this.checked) {
+          input.type = 'text'; // Mostra as senhas
+      } else {
+          input.type = 'password'; // Esconde as senhas
+      }
     });
+  });
 
   // Attach event listeners to filter buttons
   document.querySelectorAll(".filter-button").forEach((button) => {
