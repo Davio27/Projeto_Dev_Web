@@ -6,7 +6,7 @@ import {
   get,
   child,
 } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
+import { validateLogin } from "../config/autentication.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -21,7 +21,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const db = getDatabase(app);
 
 function toggleProfileMenu() {
