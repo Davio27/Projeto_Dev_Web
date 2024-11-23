@@ -19,7 +19,7 @@ const db = getDatabase(app);
 
 window.onload = function() {
   if (validateLogin == false) {
-    window.location.href = '../docs/index.html';
+    window.location.href = './index.html';
   }
 
 };
