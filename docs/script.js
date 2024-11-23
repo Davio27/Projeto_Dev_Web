@@ -5,7 +5,7 @@ import {
   set,
   get,
 } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-import { validateLogin } from "../config/autentication.js";
+import { validateLogin } from "./autentication.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -77,7 +77,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
 
   // Valida as credenciais com a função importada
   if (validateLogin(email, password)) {
-    window.location.href = "../Crud/crud.html";
+    window.location.href = "./crud.html";
   } else {
     // Verifica se o usuário está cadastrado
     const usersRef = ref(db, "users/");
