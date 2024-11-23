@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabela de Perfumes</title>
+  <link rel="stylesheet" href="css.css">
+</head>
+<body>
+  <h1>Catálogo de Perfumes</h1>
+  <table id="itensTabela">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Gênero</th>
+        <th>Tipo</th>
+        <th>Ocasião</th>
+        <th>Descrição</th>
+        <th>Valor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Os itens serão inseridos aqui pelo JavaScript -->
+    </tbody>
+  </table>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+  <script src="firebase.js"></script> <!-- Seu arquivo Firebase -->
+  <script type="module" src="app.js"></script> <!-- Seu script com a lógica -->
+</body>
+</html>
