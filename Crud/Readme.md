@@ -1,5 +1,3 @@
-Aqui está um modelo de README completo e detalhado para o seu CRUD do catálogo de perfumes. Ele inclui uma descrição clara, instruções de instalação e uso, além de emojis para torná-lo visualmente atraente e moderno.
-
 ---
 
 # 🧴 Catálogo de Perfumes - Painel Administrativo 🛠️
