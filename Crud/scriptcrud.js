@@ -1,21 +1,7 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-import { validateLogin } from ".../config/autentication.js";
+import {getItensBD, setItensBD} from "../config/bancoperf.js";
+import { validateLogin } from "../config/autentication.js";
 
-// Configuração do Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyDLas1vJi4T4z8YsDt33ZUwaw1yh8hUo_4",
-  authDomain: "dadosperfumes.firebaseapp.com",
-  databaseURL: "https://dadosperfumes-default-rtdb.firebaseio.com",
-  projectId: "dadosperfumes",
-  storageBucket: "dadosperfumes.firebasestorage.app",
-  messagingSenderId: "387371464319",
-  appId: "1:387371464319:web:198e570bed6703b651b14a"
-};
 
-// Inicialização do Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
 
 window.onload = function() {
   if (validateLogin == false) {
@@ -110,7 +96,12 @@ function insertItem(item, index) {
 
 // Salvar item no modal
 btnSalvar.onclick = e => {
-  if (sNome.value == '' || sGenero.value == '' || sTipo.value == '' || sOcasiao.value == '' || sDescricao.value == '' || sValor.value == '') {
+  if (sNome.value == '' ||
+     sGenero.value == '' ||
+      sTipo.value == '' ||
+       sOcasiao.value == '' ||
+        sDescricao.value == '' ||
+         sValor.value == '') {
     return;
   }
 
@@ -134,7 +125,7 @@ btnSalvar.onclick = e => {
     });
   }
 
-  setItensBD(); // Salva os dados no banco
+  setItensBD(itens); // Salva os dados no banco
 
   modal.classList.remove('active');
   loadItens();
@@ -143,41 +134,27 @@ btnSalvar.onclick = e => {
 
 // Carregar itens do banco
 async function loadItens() {
-  itens = await getItensBD(); // Aguarda dados do Firebase
-  tbody.innerHTML = '';
-  itens.forEach((item, index) => {
-    insertItem(item, index);
-  });
+  try {
+    // Obter itens do banco
+    const rawData = await getItensBD(); 
+
+    // Verificar se os dados são um objeto (transformar em array, se necessário)
+    itens = rawData ? Object.values(rawData) : [];
+
+    // Limpar e renderizar a tabela
+    tbody.innerHTML = "";
+    itens.forEach((item, index) => {
+      insertItem(item, index);
+    });
+
+    // Exibir modal de sucesso
+    showSuccessModal();
+  } catch (error) {
+    console.error("Erro ao carregar itens:", error);
+    showFaletModal();
+  }
 }
 
-// Buscar itens no banco
-const getItensBD = async () => {
-  const referencia = ref(db, "Perfumes/");
-  try {
-    const snapshot = await get(referencia); // Busca dados do banco
-    if (snapshot.exists()) {
-      showSuccessModal();
-      return snapshot.val();
-    } else {
-      return [];
-    }
-  } catch (error) {
-    showFaletModal();
-    return [];
-  }
-};
-
-// Salvar itens no banco
-const setItensBD = () => {
-  const referencia = ref(db, "Perfumes/");
-  set(referencia, itens) // Salva o array de itens no Firebase
-    .then(() => {
-      SucessoSalvarModal();
-    })
-    .catch((error) => {
-      FaletSalvarModal();
-    });
-};
 
 // Filtro de pesquisa
 searchInput.addEventListener('input', filterItems);
