@@ -5,7 +5,7 @@ import {
   set,
   get,
 } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-import { validateLogin } from "../config/autentication.js";
+import { validateLogin } from ".../config/autentication.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
