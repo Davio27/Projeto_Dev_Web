@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-import { validateLogin } from "../config/autentication.js";
+import { validateLogin } from ".../config/autentication.js";
 
 // Configuração do Firebase
 const firebaseConfig = {
