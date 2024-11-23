@@ -1,26 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import {
-  getDatabase,
-  ref,
-  set,
-  get,
-} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import { saveData, getData } from './bancoclient.js';
 import { validateLogin } from "./autentication.js";
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyBKy_3sfoPtuhYWgmUgLepmdQtYNn272NY",
-  authDomain: "devweb-a7e5a.firebaseapp.com",
-  projectId: "devweb-a7e5a",
-  storageBucket: "devweb-a7e5a.appspot.com",
-  messagingSenderId: "883683114423",
-  appId: "1:883683114423:web:3ed65501cdb1434cda3c32",
-  measurementId: "G-QP88L0EGMW",
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
 
 function toggleProfileMenu() {
   const profileMenu = document.getElementById("profileMenu");
@@ -35,6 +15,41 @@ function toggleProfileMenu() {
   }
 }
 window.toggleProfileMenu = toggleProfileMenu;
+
+// Função Alerta
+function showAlert(message) {
+  // Cria o elemento de alerta
+  const alertDiv = document.createElement('div');
+  
+  // Define o estilo diretamente via JavaScript
+  alertDiv.style.position = 'fixed';
+  alertDiv.style.top = '50%';
+  alertDiv.style.left = '50%';
+  alertDiv.style.transform = 'translate(-50%, -50%)'; // Centraliza o alerta
+  alertDiv.style.backgroundColor = '#323946';
+  alertDiv.style.color = '#fff';
+  alertDiv.style.padding = '25px';
+  alertDiv.style.borderRadius = '5px';
+  alertDiv.style.boxShadow = '0px 4px 6px rgba(0, 0, 0, 0.1)';
+  alertDiv.style.fontSize = '16px';
+  alertDiv.style.zIndex = '1000';
+  alertDiv.style.opacity = '1';
+  alertDiv.style.transition = 'opacity 0.5s ease';
+  
+  // Define a mensagem do alerta
+  alertDiv.innerHTML = message;
+
+  // Adiciona o alerta à página
+  document.body.appendChild(alertDiv);
+
+  // Remove o alerta após 2 segundos
+  setTimeout(() => {
+    alertDiv.style.opacity = '0'; // Faz o alerta desaparecer suavemente
+    setTimeout(() => {
+      alertDiv.remove(); // Remove o alerta do DOM após a animação
+    }, 500); // Tempo para a animação de desaparecer
+  }, 2000); // Tempo para exibir o alerta (2 segundos)
+}
 
 // Função para validar e-mail
 function validarEmail(email) {
@@ -69,50 +84,38 @@ document.getElementById("telefone").addEventListener("input", function () {
   this.value = formatarTelefone(this.value);
 });
 
-document.getElementById("loginForm").addEventListener("submit", function (e) {
-  e.preventDefault(); // Evita o recarregamento da página
+document.getElementById("loginForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
 
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
 
-  // Valida as credenciais com a função importada
-  if (validateLogin(email, password)) {
-    window.location.href = "./crud.html";
-  } else {
-    // Verifica se o usuário está cadastrado
-    const usersRef = ref(db, "users/");
-    get(usersRef)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          let userFound = false;
-          snapshot.forEach((childSnapshot) => {
-            const userData = childSnapshot.val();
-            if (userData.email === email && userData.password === password) {
-              userFound = true;
-              alert("Login realizado com sucesso!");
-              document.getElementById("loginModal").style.display = "none";
+  try {
+    const users = await getData("users");
+    const user = Object.values(users).find((u) => u.email === email && u.password === password);
+    if (validateLogin(email, password)) {
+      window.location.href = "./crud.html";
+      showAlert("Bem Vindo, Admin😊");
+    } else {
+    if (user) {
+      showAlert("Login realizado com sucesso!")
+      document.getElementById("loginModal").style.display = "none";
 
-              // Correção na troca de ícones
-              document.getElementById("perfilnoicon").style.display = "none";
-              document.getElementById("perfilicon").style.display = "flex";
-              // Aqui você pode redirecionar o usuário ou salvar a sessão
-            }
-          });
-          if (!userFound) {
-            alert("Credenciais incorretas. Verifique o e-mail e a senha.");
-          }
-        } else {
-          alert("Nenhum usuário encontrado.");
-        }
-      })
-      .catch((error) => {
-        console.error("Erro ao buscar dados do usuário: ", error);
-        alert("Erro ao realizar login. Tente novamente.");
-      });
+      // Atualizar ícones
+      document.getElementById("perfilnoicon").style.display = "none";
+      document.getElementById("perfilicon").style.display = "flex";
+    } else {
+      showAlert("Credenciais incorretas. Verifique o e-mail e a senha.")
+    }
+  }
+  } catch (error) {
+    console.error("Erro ao buscar dados do usuário: ", error);
+    showAlert("Erro ao realizar login. Tente novamente.");
   }
 });
 
-document.getElementById("btnregister").addEventListener("click", function (e) {
+
+document.getElementById("btnregister").addEventListener("click", async function (e) {
   e.preventDefault(); // Evita o recarregamento da página
 
   // Coleta os dados do formulário
@@ -125,13 +128,13 @@ document.getElementById("btnregister").addEventListener("click", function (e) {
 
   // Verifica se o e-mail é válido
   if (!validarEmail(email)) {
-    alert("Por favor, insira um e-mail válido.");
+    showAlert("Por favor, insira um e-mail válido.");
     return;
   }
 
   // Validação da senha
   if (!validarSenha(password)) {
-    alert(
+    showAlert(
       "A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma minúscula e um número."
     );
     return;
@@ -139,35 +142,28 @@ document.getElementById("btnregister").addEventListener("click", function (e) {
 
   // Verificação se as senhas coincidem
   if (!validarConfirmacaoSenha(password, confirmPassword)) {
-    alert("As senhas não coincidem.");
+    showAlert("As senhas não coincidem.");
     return;
   }
 
   // Define o caminho e os dados a serem armazenados
-  set(ref(db, "users/" + username), {
-    username: username,
-    email: email,
-    password: password,
-    cidade: cidade,
-    telefone: telefone,
-  })
-    .then(() => {
-      alert("Cadastro realizado com sucesso!");
+  const newUser = {
+    username,
+    email,
+    password,
+    cidade,
+    telefone,
+  };
 
-      // Verifica se o elemento do formulário existe antes de redefini-lo
-      const formElement = document.getElementById("registerForm");
-      if (formElement) {
-        formElement.reset();
-      } else {
-        console.error("Elemento de formulário não encontrado!");
-      }
-
-      document.getElementById("registerModal").style.display = "none";
-    })
-    .catch((error) => {
-      console.error("Erro ao adicionar documento: ", error);
-      alert("Erro ao cadastrar. Tente novamente.");
-    });
+  try {
+    await saveData(`users/${username}`, newUser);
+    showAlert("Cadastro realizado com sucesso!");
+    document.getElementById("registerForm").reset();
+    document.getElementById("registerModal").style.display = "none";
+  } catch (error) {
+    console.error("Erro ao salvar os dados do usuário: ", error);
+    showAlert("Erro ao cadastrar. Tente novamente.");
+  }
 });
 
 document.addEventListener("DOMContentLoaded", function () {
