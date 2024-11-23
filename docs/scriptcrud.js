@@ -36,7 +36,7 @@ const sValor = document.querySelector('#m-valor');
 const sDescricao = document.querySelector('#m-descricao');
 const btnSalvar = document.querySelector('#btnSalvar');
 const searchInput = document.querySelector('#search');
-const imgFoto = '/docs/imgs/perfumefoto.png'
+const imgFoto = './imgs/perfumefoto.png'
 
 
 let itens = [];
