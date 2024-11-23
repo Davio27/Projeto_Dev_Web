@@ -77,7 +77,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
 
   // Valida as credenciais com a função importada
   if (validateLogin(email, password)) {
-    window.location.href = "../Crud/crud.html";
+    window.location.href = ".../Crud/crud.html";
   } else {
     // Verifica se o usuário está cadastrado
     const usersRef = ref(db, "users/");
