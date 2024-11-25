@@ -1,6 +1,6 @@
 // Função para validar o login
 export function validateLogin(email, password) {
-    const correctEmail = 'daviccarvalho11@hotmail.com'|| 'Daviccarvalho11@hotmail.com';
+    const correctEmail = 'daviccarvalho11@hotmail.com';
     const correctPassword = '12345abcd';
 
     if (email === correctEmail && password === correctPassword) {
